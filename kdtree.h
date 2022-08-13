@@ -1,6 +1,7 @@
 #ifndef __KDTREE_H__
 #define __KDTREE_H__
 
+#include <cmath>
 #include <vector>
 #include <numeric>
 #include <algorithm>
@@ -224,7 +225,7 @@ namespace kdt
 			double dist = 0;
 			for (size_t i = 0; i < PointT::DIM; i++)
 				dist += (p[i] - q[i]) * (p[i] - q[i]);
-			return sqrt(dist);
+			return std::sqrt(dist);
 		}
 
 		/** @brief Searches the nearest neighbor recursively.
@@ -247,7 +248,7 @@ namespace kdt
 			const int dir = query[axis] < train[axis] ? 0 : 1;
 			nnSearchRecursive(query, node->next[dir], guess, minDist);
 
-			const double diff = fabs(query[axis] - train[axis]);
+			const double diff = std::fabs(query[axis] - train[axis]);
 			if (diff < *minDist)
 				nnSearchRecursive(query, node->next[!dir], guess, minDist);
 		}
